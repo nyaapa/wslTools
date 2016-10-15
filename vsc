@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+
+use 5.014;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/lib";
+use IO::Socket::INET;
+
+use WSL::Util;
+use WSL::PathConverter;
+
+for my $path ( map { WSL::PathConverter::convertToWin($_) } WSL::Util::getInput() ) {
+	my $sock = IO::Socket::INET->new(PeerAddr => "localhost", PeerPort => 8899, Proto => "tcp")
+	or die "Can't open $path: $!";
+
+	$sock->send($path);	
+	say "Opened $path";
+}
+
