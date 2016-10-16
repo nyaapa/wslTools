@@ -2,6 +2,8 @@ package WSL::PathConverter;
 
 use 5.014;
 use warnings;
+use feature qw(signatures);
+no warnings qw(experimental::signatures);
 
 use Cwd qw/abs_path/;
 
@@ -13,10 +15,7 @@ our @EXPORT_OK = qw/
 
 our $WSL_ROOT_DIR = "C:/Users/nyaap/AppData/Local/lxss/";
 
-sub convertToWin($;$) {
-	my $path = shift;
-	my $ignore_check = shift;
-
+sub convertToWin($path, $ignore_check = 0) {
 	$path =~ s/:.*//;
 	die "Unexisted path: $path" unless $ignore_check || -e $path;
 
