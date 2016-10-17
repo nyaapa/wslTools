@@ -24,6 +24,7 @@ sub convertToWin($path, $ignore_check = 0) {
 		$abs_path = "$WSL_ROOT_DIR/$abs_path";
 	}
 	$abs_path =~ s@/@\\@g;
+	$abs_path =~ s@\\\\@\\@g;
 	return $abs_path;
 }
 
