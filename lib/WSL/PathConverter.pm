@@ -20,7 +20,7 @@ sub convertToWin($path, $ignore_check = 0) {
 	die "Unexisted path: $path" unless $ignore_check || -e $path;
 
 	my $abs_path = abs_path($path); 
-	unless ( $abs_path =~ s@^/mnt/c/@C:/@ ) {
+	unless ( $abs_path =~ s@^/mnt/([a-z])/@$1:/@ ) {
 		$abs_path = "$WSL_ROOT_DIR/$abs_path";
 	}
 	$abs_path =~ s@/@\\@g;
